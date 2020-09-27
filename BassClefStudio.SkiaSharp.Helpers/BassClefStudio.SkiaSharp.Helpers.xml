@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>BassClefStudio.SkiaSharp.Helpers</name>
+    </assembly>
+    <members>
+        <member name="T:BassClefStudio.SkiaSharp.Helpers.RenderService`1">
+            <summary>
+            Represents a service capable of rendering the graphics representing an object of type <typeparamref name="T"/> onto a <see cref="T:SkiaSharp.SKCanvas"/>.
+            </summary>
+        </member>
+        <member name="P:BassClefStudio.SkiaSharp.Helpers.RenderService`1.Paints">
+            <summary>
+            A collection of <see cref="T:SkiaSharp.SKPaint"/>s keyed with <see cref="T:System.String"/>s, which are managed by the <see cref="T:BassClefStudio.SkiaSharp.Helpers.RenderService`1"/> (e.g. disposal).
+            </summary>
+        </member>
+        <member name="P:BassClefStudio.SkiaSharp.Helpers.RenderService`1.AttachedContext">
+            <summary>
+            The attached <typeparamref name="T"/> context that the <see cref="T:BassClefStudio.SkiaSharp.Helpers.RenderService`1"/> renders.
+            </summary>
+        </member>
+        <member name="M:BassClefStudio.SkiaSharp.Helpers.RenderService`1.Render(SkiaSharp.SKCanvas)">
+            <summary>
+            Renders the <see cref="P:BassClefStudio.SkiaSharp.Helpers.RenderService`1.AttachedContext"/> onto the given <see cref="T:SkiaSharp.SKCanvas"/>.
+            </summary>
+            <param name="canvas">The canvas to render content onto.</param>
+        </member>
+        <member name="P:BassClefStudio.SkiaSharp.Helpers.RenderService`1.SelectionRegions">
+            <summary>
+            A collection of <see cref="T:BassClefStudio.SkiaSharp.Helpers.SelectionRegion"/>s which are used to find the selected object in the <see cref="M:BassClefStudio.SkiaSharp.Helpers.RenderService`1.GetSelected(SkiaSharp.SKPoint)"/> method.
+            </summary>
+        </member>
+        <member name="M:BassClefStudio.SkiaSharp.Helpers.RenderService`1.GetSelected(SkiaSharp.SKPoint)">
+            <summary>
+            Gets the <see cref="T:BassClefStudio.SkiaSharp.Helpers.SelectionRegion"/> object found at the given SkiaSharp coordinates for the <see cref="P:BassClefStudio.SkiaSharp.Helpers.RenderService`1.AttachedContext"/> (for use in selection and click events, etc.).
+            </summary>
+            <param name="point">The point, in SkiaSharp pixel coordinates, to check for selection.</param>
+        </member>
+        <member name="M:BassClefStudio.SkiaSharp.Helpers.RenderService`1.GetSelected``1(SkiaSharp.SKPoint)">
+            <summary>
+            Return the <typeparamref name="TItem"/> model object found at the given SkiaSharp coordinates for the <see cref="P:BassClefStudio.SkiaSharp.Helpers.RenderService`1.AttachedContext"/> (for use in selection and click events, etc.).
+            </summary>
+            <param name="point">The point, in SkiaSharp pixel coordinates, to check for selection.</param>
+        </member>
+        <member name="M:BassClefStudio.SkiaSharp.Helpers.RenderService`1.Dispose">
+            <inheritdoc/>
+        </member>
+        <member name="T:BassClefStudio.SkiaSharp.Helpers.SelectionRegion">
+            <summary>
+            Represents a selectable region as displayed by a <see cref="T:BassClefStudio.SkiaSharp.Helpers.RenderService`1"/>.
+            </summary>
+        </member>
+        <member name="P:BassClefStudio.SkiaSharp.Helpers.SelectionRegion.SelectionBounds">
+            <summary>
+            A <see cref="T:SkiaSharp.SKRect"/> representing the bounds of the selection region.
+            </summary>
+        </member>
+        <member name="P:BassClefStudio.SkiaSharp.Helpers.SelectionRegion.AttachedObject">
+            <summary>
+            The model <see cref="T:System.Object"/> that is rendered in this <see cref="T:BassClefStudio.SkiaSharp.Helpers.SelectionRegion"/>.
+            </summary>
+        </member>
+    </members>
+</doc>
