@@ -1,7 +1,15 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netstandard1.4</TargetFramework>
+    <Authors>BassClefStudio</Authors>
+    <Description>Helper classes for building graphical applications and games using SkiaSharp.</Description>
+    <PackageProjectUrl>https://github.com/bassclefstudio/SkiaSharp-Helpers</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/bassclefstudio/SkiaSharp-Helpers.git</RepositoryUrl>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>C:\Users\deckl\OneDrive\Decklan Cloud\Development\Games\BassClefStudio.SkiaSharp.Helpers\BassClefStudio.SkiaSharp.Helpers\BassClefStudio.SkiaSharp.Helpers.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
