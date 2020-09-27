@@ -32,9 +32,9 @@ namespace BassClefStudio.SkiaSharp.Helpers
         public abstract void Render(SKCanvas canvas);
 
         /// <summary>
-        /// A collection of <see cref="SelectionRegion"/>s which are used to find the selected object in the <see cref="GetSelected(SKPoint)"/> method.
+        /// Gets a collection of <see cref="SelectionRegion"/>s which are used to find the selected object in the <see cref="GetSelected(SKPoint)"/> method.
         /// </summary>
-        protected ObservableCollection<SelectionRegion> SelectionRegions { get; } = new ObservableCollection<SelectionRegion>();
+        protected abstract IEnumerable<SelectionRegion> GetSelectionRegions();
 
         /// <summary>
         /// Gets the <see cref="SelectionRegion"/> object found at the given SkiaSharp coordinates for the <see cref="AttachedContext"/> (for use in selection and click events, etc.).
@@ -42,7 +42,7 @@ namespace BassClefStudio.SkiaSharp.Helpers
         /// <param name="point">The point, in SkiaSharp pixel coordinates, to check for selection.</param>
         public SelectionRegion GetSelected(SKPoint point)
         {
-            return SelectionRegions.LastOrDefault(r => r.SelectionBounds.Contains(point));
+            return GetSelectionRegions().LastOrDefault(r => r.SelectionBounds.Contains(point));
         }
 
         /// <summary>
@@ -51,7 +51,7 @@ namespace BassClefStudio.SkiaSharp.Helpers
         /// <param name="point">The point, in SkiaSharp pixel coordinates, to check for selection.</param>
         public TItem GetSelected<TItem>(SKPoint point)
         {
-            var region = SelectionRegions.LastOrDefault(r => r.SelectionBounds.Contains(point) && r.AttachedObject is TItem);
+            var region = GetSelectionRegions().LastOrDefault(r => r.SelectionBounds.Contains(point) && r.AttachedObject is TItem);
             return region != null ? (TItem)region.AttachedObject : default(TItem);
         }
 

@@ -25,9 +25,9 @@
             </summary>
             <param name="canvas">The canvas to render content onto.</param>
         </member>
-        <member name="P:BassClefStudio.SkiaSharp.Helpers.RenderService`1.SelectionRegions">
+        <member name="M:BassClefStudio.SkiaSharp.Helpers.RenderService`1.GetSelectionRegions">
             <summary>
-            A collection of <see cref="T:BassClefStudio.SkiaSharp.Helpers.SelectionRegion"/>s which are used to find the selected object in the <see cref="M:BassClefStudio.SkiaSharp.Helpers.RenderService`1.GetSelected(SkiaSharp.SKPoint)"/> method.
+            Gets a collection of <see cref="T:BassClefStudio.SkiaSharp.Helpers.SelectionRegion"/>s which are used to find the selected object in the <see cref="M:BassClefStudio.SkiaSharp.Helpers.RenderService`1.GetSelected(SkiaSharp.SKPoint)"/> method.
             </summary>
         </member>
         <member name="M:BassClefStudio.SkiaSharp.Helpers.RenderService`1.GetSelected(SkiaSharp.SKPoint)">

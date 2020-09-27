@@ -6,7 +6,7 @@
     <Description>Helper classes for building graphical applications and games using SkiaSharp.</Description>
     <PackageProjectUrl>https://github.com/bassclefstudio/SkiaSharp-Helpers</PackageProjectUrl>
     <RepositoryUrl>https://github.com/bassclefstudio/SkiaSharp-Helpers.git</RepositoryUrl>
-    <Version>1.1.0</Version>
+    <Version>1.1.1</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
