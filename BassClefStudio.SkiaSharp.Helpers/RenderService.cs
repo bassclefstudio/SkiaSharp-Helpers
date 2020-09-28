@@ -48,6 +48,9 @@ namespace BassClefStudio.SkiaSharp.Helpers
             SKRect boundingRect = new SKRect(-width, height, width, -height);
             canvas.ClipRect(boundingRect, SKClipOperation.Intersect, true);
 
+            canvas.Scale(ViewCamera.CameraScale);
+            canvas.Translate(-ViewCamera.CameraPosition.X, -ViewCamera.CameraPosition.Y);
+
             RenderInternal(canvas);
         }
 
