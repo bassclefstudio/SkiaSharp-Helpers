@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Numerics;
 using System.Runtime.CompilerServices;
 using System.Text;
 
@@ -26,10 +27,35 @@ namespace BassClefStudio.SkiaSharp.Helpers
         public T AttachedContext { get => attachedContext; set => Set(ref attachedContext, value); }
 
         /// <summary>
+        /// Represents the camera that indicates how the view should be presented.
+        /// </summary>
+        public Camera ViewCamera { get; } = new Camera();
+
+        /// <summary>
         /// Renders the <see cref="AttachedContext"/> onto the given <see cref="SKCanvas"/>.
         /// </summary>
         /// <param name="canvas">The canvas to render content onto.</param>
-        public abstract void Render(SKCanvas canvas);
+        public void Render(SKCanvas canvas)
+        {
+            canvas.Clear();
+            float viewScale = ViewCamera.ViewScale;
+            Vector2 canvasSize = ViewCamera.ViewSize;
+            canvas.Scale(viewScale, -viewScale);
+            float width = canvasSize.X / (2 * viewScale);
+            float height = canvasSize.Y / (2 * viewScale);
+            canvas.Translate(width, -height);
+
+            SKRect boundingRect = new SKRect(-width, height, width, -height);
+            canvas.ClipRect(boundingRect, SKClipOperation.Intersect, true);
+
+            RenderInternal(canvas);
+        }
+
+        /// <summary>
+        /// An internal method that is called in <see cref="Render(SKCanvas)"/> after the <see cref="Camera"/> has been positioned.
+        /// </summary>
+        /// <param name="canvas">The canvas to render content onto.</param>
+        protected abstract void RenderInternal(SKCanvas canvas);
 
         /// <summary>
         /// Gets a collection of <see cref="SelectionRegion"/>s which are used to find the selected object in the <see cref="GetSelected(SKPoint)"/> method.
