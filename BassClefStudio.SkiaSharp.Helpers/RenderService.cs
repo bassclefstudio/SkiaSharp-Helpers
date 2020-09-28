@@ -87,7 +87,7 @@ namespace BassClefStudio.SkiaSharp.Helpers
 
         private bool IsSelected(SelectionRegion region, SKPoint point)
         {
-            return (point - region.SelectionCenter).LengthSquared < (region.Radius * region.Radius);
+            return (point - region.SelectionCenter).LengthSquared < region.RadiusSquared;
         }
 
         /// <inheritdoc/>

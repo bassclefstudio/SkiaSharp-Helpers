@@ -18,11 +18,11 @@ namespace BassClefStudio.SkiaSharp.Helpers
         /// </summary>
         public SKPoint SelectionCenter { get => selectionCenter; set => Set(ref selectionCenter, value); }
 
-        private float radius;
+        private float radiusSquared;
         /// <summary>
-        /// The maximum distance away from the <see cref="SelectionCenter"/> a point can be to still be considered selecting this <see cref="SelectionRegion"/>.
+        /// The maximum distance away from the <see cref="SelectionCenter"/> a point can be to still be considered selecting this <see cref="SelectionRegion"/>, squared.
         /// </summary>
-        public float Radius { get => radius; set => Set(ref radius, value); }
+        public float RadiusSquared { get => radiusSquared; set => Set(ref radiusSquared, value); }
 
         private object attachedObject;
         /// <summary>
