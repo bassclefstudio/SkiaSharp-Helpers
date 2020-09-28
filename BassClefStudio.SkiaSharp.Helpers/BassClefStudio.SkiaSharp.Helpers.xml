@@ -4,6 +4,156 @@
         <name>BassClefStudio.SkiaSharp.Helpers</name>
     </assembly>
     <members>
+        <member name="T:BassClefStudio.SkiaSharp.Helpers.Camera">
+            <summary>
+            Represents a dynamic viewport for displaying SkiaSharp graphics.
+            </summary>
+        </member>
+        <member name="P:BassClefStudio.SkiaSharp.Helpers.Camera.ViewSize">
+            <summary>
+            The size of the game, in pixels, as a <see cref="T:System.Numerics.Vector2"/> (width, height).
+            </summary>
+        </member>
+        <member name="P:BassClefStudio.SkiaSharp.Helpers.Camera.ViewScale">
+            <summary>
+            The scale of the game view, the size of which is defined by <see cref="P:BassClefStudio.SkiaSharp.Helpers.Camera.ViewSize"/>, as a float.
+            </summary>
+        </member>
+        <member name="P:BassClefStudio.SkiaSharp.Helpers.Camera.CameraPosition">
+            <summary>
+            The position of the camera relative to the world, as a <see cref="T:System.Numerics.Vector2"/>.
+            </summary>
+        </member>
+        <member name="P:BassClefStudio.SkiaSharp.Helpers.Camera.CameraScale">
+            <summary>
+            The zoom factor of the camera relative to the world.
+            </summary>
+        </member>
+        <member name="M:BassClefStudio.SkiaSharp.Helpers.Camera.#ctor">
+            <summary>
+            Creates a new <see cref="T:BassClefStudio.SkiaSharp.Helpers.Camera"/>.
+            </summary>
+        </member>
+        <member name="M:BassClefStudio.SkiaSharp.Helpers.Camera.SetCamera(System.Numerics.Vector2,System.Single)">
+            <summary>
+            Sets the <see cref="T:BassClefStudio.SkiaSharp.Helpers.Camera"/>'s position and zoom relative to the world.
+            </summary>
+            <param name="pos">The position of the <see cref="T:BassClefStudio.SkiaSharp.Helpers.Camera"/>.</param>
+            <param name="scale">The zoom factor of the <see cref="T:BassClefStudio.SkiaSharp.Helpers.Camera"/>.</param>
+        </member>
+        <member name="M:BassClefStudio.SkiaSharp.Helpers.Camera.LerpCamera(System.Numerics.Vector2,System.Single,System.Single)">
+            <summary>
+            Smoothly interpolates the <see cref="T:BassClefStudio.SkiaSharp.Helpers.Camera"/> position and zoom towards given values at a specified speed.
+            </summary>
+            <param name="pos">The position of the <see cref="T:BassClefStudio.SkiaSharp.Helpers.Camera"/>.</param>
+            <param name="scale">The zoom factor of the <see cref="T:BassClefStudio.SkiaSharp.Helpers.Camera"/>.</param>
+            <param name="lerpSpeed">The distance between the current value and the desired value to travel, as a ratio in (0,1].</param>
+        </member>
+        <member name="M:BassClefStudio.SkiaSharp.Helpers.Camera.SetView(System.Numerics.Vector2,System.Single)">
+            <summary>
+            Sets the size and scale of the game view.
+            </summary>
+            <param name="size">The size of the game view as a <see cref="T:System.Numerics.Vector2"/> (width, height).</param>
+            <param name="scale">The scale factor of the game view.</param>
+        </member>
+        <member name="M:BassClefStudio.SkiaSharp.Helpers.Camera.MoveCamera(BassClefStudio.SkiaSharp.Helpers.CameraBehavior,System.Numerics.Vector2,System.Single)">
+            <summary>
+            Moves the camera towards a given position with a specified speed while obeying the given <see cref="T:BassClefStudio.SkiaSharp.Helpers.CameraBehavior"/> ruleset.
+            </summary>
+            <param name="camBehavior">The behavior of the <see cref="T:BassClefStudio.SkiaSharp.Helpers.Camera"/> as a <see cref="T:BassClefStudio.SkiaSharp.Helpers.CameraBehavior"/>, specifying desired zoom, bounds, and movement type.</param>
+            <param name="position">The desired focus position for the <see cref="T:BassClefStudio.SkiaSharp.Helpers.Camera"/> to move towards.</param>
+            <param name="lerpSpeed">The distance between the current value and the desired value to travel, as a ratio in (0,1].</param>
+        </member>
+        <member name="T:BassClefStudio.SkiaSharp.Helpers.CameraBehavior">
+            <summary>
+            Provides information about how the <see cref="T:BassClefStudio.SkiaSharp.Helpers.Camera"/> should behave.
+            </summary>
+        </member>
+        <member name="P:BassClefStudio.SkiaSharp.Helpers.CameraBehavior.Bounds">
+            <summary>
+            A bounding region that the <see cref="T:BassClefStudio.SkiaSharp.Helpers.Camera"/> must restrict movement in.
+            </summary>
+        </member>
+        <member name="P:BassClefStudio.SkiaSharp.Helpers.CameraBehavior.BehaviorType">
+            <summary>
+            A <see cref="T:BassClefStudio.SkiaSharp.Helpers.CameraBehaviorType"/> specifying how the <see cref="P:BassClefStudio.SkiaSharp.Helpers.CameraBehavior.Bounds"/> and <see cref="P:BassClefStudio.SkiaSharp.Helpers.CameraBehavior.DesiredZoom"/> affect camera movement.
+            </summary>
+        </member>
+        <member name="P:BassClefStudio.SkiaSharp.Helpers.CameraBehavior.DesiredZoom">
+            <summary>
+            A nullable <see cref="T:System.Single"/> indicating the desired zoom; if not set, a value is selected based on the <see cref="P:BassClefStudio.SkiaSharp.Helpers.CameraBehavior.BehaviorType"/>.
+            </summary>
+        </member>
+        <member name="M:BassClefStudio.SkiaSharp.Helpers.CameraBehavior.#ctor(BassClefStudio.SkiaSharp.Helpers.Bounds,BassClefStudio.SkiaSharp.Helpers.CameraBehaviorType,System.Nullable{System.Single})">
+            <summary>
+            Creates a new <see cref="T:BassClefStudio.SkiaSharp.Helpers.CameraBehavior"/>.
+            </summary>
+            <param name="bounds">A bounding region that the <see cref="T:BassClefStudio.SkiaSharp.Helpers.Camera"/> must restrict movement in.</param>
+            <param name="regionType">A <see cref="T:BassClefStudio.SkiaSharp.Helpers.CameraBehaviorType"/> specifying how the <see cref="P:BassClefStudio.SkiaSharp.Helpers.CameraBehavior.Bounds"/> and <see cref="P:BassClefStudio.SkiaSharp.Helpers.CameraBehavior.DesiredZoom"/> affect camera movement.</param>
+            <param name="desiredZoom">A nullable <see cref="T:System.Single"/> indicating the desired zoom; if not set, a value is selected based on the <see cref="P:BassClefStudio.SkiaSharp.Helpers.CameraBehavior.BehaviorType"/>.</param>
+        </member>
+        <member name="T:BassClefStudio.SkiaSharp.Helpers.CameraBehaviorType">
+            <summary>
+            An enum indicating how a <see cref="T:BassClefStudio.SkiaSharp.Helpers.Camera"/> will move and zoom when given a <see cref="T:BassClefStudio.SkiaSharp.Helpers.CameraBehavior"/>.
+            </summary>
+        </member>
+        <member name="F:BassClefStudio.SkiaSharp.Helpers.CameraBehaviorType.Free">
+            <summary>
+            The <see cref="T:BassClefStudio.SkiaSharp.Helpers.Camera"/> will follow the focus point around the screen, zooming to the value indicated by <see cref="P:BassClefStudio.SkiaSharp.Helpers.CameraBehavior.DesiredZoom"/> or to a value that fills the screen with the <see cref="P:BassClefStudio.SkiaSharp.Helpers.CameraBehavior.Bounds"/>.
+            </summary>
+        </member>
+        <member name="F:BassClefStudio.SkiaSharp.Helpers.CameraBehaviorType.Fill">
+            <summary>
+            The <see cref="T:BassClefStudio.SkiaSharp.Helpers.Camera"/> will follow the focus point within the specified <see cref="P:BassClefStudio.SkiaSharp.Helpers.CameraBehavior.Bounds"/>, zooming to the value indicated by <see cref="P:BassClefStudio.SkiaSharp.Helpers.CameraBehavior.DesiredZoom"/> or to a value that fills the screen with the <see cref="P:BassClefStudio.SkiaSharp.Helpers.CameraBehavior.Bounds"/>.
+            </summary>
+        </member>
+        <member name="F:BassClefStudio.SkiaSharp.Helpers.CameraBehaviorType.Fit">
+            <summary>
+            The <see cref="T:BassClefStudio.SkiaSharp.Helpers.Camera"/> will stay put in the center of the region, zooming to the value indicated by <see cref="P:BassClefStudio.SkiaSharp.Helpers.CameraBehavior.DesiredZoom"/> or to a value that fits the entire <see cref="P:BassClefStudio.SkiaSharp.Helpers.CameraBehavior.Bounds"/> on the screen at one time.
+            </summary>
+        </member>
+        <member name="T:BassClefStudio.SkiaSharp.Helpers.Bounds">
+            <summary>
+            Represents minimum and maximum X and Y values for creating <see cref="T:BassClefStudio.SkiaSharp.Helpers.Camera"/> bounds.
+            </summary>
+        </member>
+        <member name="P:BassClefStudio.SkiaSharp.Helpers.Bounds.MinX">
+            <summary>
+            The minimum X value.
+            </summary>
+        </member>
+        <member name="P:BassClefStudio.SkiaSharp.Helpers.Bounds.MinY">
+            <summary>
+            The minimum Y value.
+            </summary>
+        </member>
+        <member name="P:BassClefStudio.SkiaSharp.Helpers.Bounds.MaxX">
+            <summary>
+            The maximum X value.
+            </summary>
+        </member>
+        <member name="P:BassClefStudio.SkiaSharp.Helpers.Bounds.MaxY">
+            <summary>
+            The maximum Y value.
+            </summary>
+        </member>
+        <member name="M:BassClefStudio.SkiaSharp.Helpers.Bounds.Center">
+            <summary>
+            Returns a <see cref="T:System.Numerics.Vector2"/> point at the center of the <see cref="T:BassClefStudio.SkiaSharp.Helpers.Bounds"/>.
+            </summary>
+        </member>
+        <member name="M:BassClefStudio.SkiaSharp.Helpers.Bounds.Size">
+            <summary>
+            Returns a <see cref="T:System.Numerics.Vector2"/> (width, height) indicating the size of the <see cref="T:BassClefStudio.SkiaSharp.Helpers.Bounds"/>.
+            </summary>
+        </member>
+        <member name="M:BassClefStudio.SkiaSharp.Helpers.Bounds.#ctor(System.Numerics.Vector2,System.Numerics.Vector2)">
+            <summary>
+            Creates a new <see cref="T:BassClefStudio.SkiaSharp.Helpers.Bounds"/> from two <see cref="T:System.Numerics.Vector2"/>s, ensuring the min and max values are set correctly.
+            </summary>
+            <param name="a">The first <see cref="T:System.Numerics.Vector2"/> point.</param>
+            <param name="b">The second <see cref="T:System.Numerics.Vector2"/> point.</param>
+        </member>
         <member name="T:BassClefStudio.SkiaSharp.Helpers.RenderService`1">
             <summary>
             Represents a service capable of rendering the graphics representing an object of type <typeparamref name="T"/> onto a <see cref="T:SkiaSharp.SKCanvas"/>.
@@ -19,9 +169,20 @@
             The attached <typeparamref name="T"/> context that the <see cref="T:BassClefStudio.SkiaSharp.Helpers.RenderService`1"/> renders.
             </summary>
         </member>
+        <member name="P:BassClefStudio.SkiaSharp.Helpers.RenderService`1.ViewCamera">
+            <summary>
+            Represents the camera that indicates how the view should be presented.
+            </summary>
+        </member>
         <member name="M:BassClefStudio.SkiaSharp.Helpers.RenderService`1.Render(SkiaSharp.SKCanvas)">
             <summary>
             Renders the <see cref="P:BassClefStudio.SkiaSharp.Helpers.RenderService`1.AttachedContext"/> onto the given <see cref="T:SkiaSharp.SKCanvas"/>.
+            </summary>
+            <param name="canvas">The canvas to render content onto.</param>
+        </member>
+        <member name="M:BassClefStudio.SkiaSharp.Helpers.RenderService`1.RenderInternal(SkiaSharp.SKCanvas)">
+            <summary>
+            An internal method that is called in <see cref="M:BassClefStudio.SkiaSharp.Helpers.RenderService`1.Render(SkiaSharp.SKCanvas)"/> after the <see cref="T:BassClefStudio.SkiaSharp.Helpers.Camera"/> has been positioned.
             </summary>
             <param name="canvas">The canvas to render content onto.</param>
         </member>
@@ -44,6 +205,42 @@
         </member>
         <member name="M:BassClefStudio.SkiaSharp.Helpers.RenderService`1.Dispose">
             <inheritdoc/>
+        </member>
+        <member name="T:BassClefStudio.SkiaSharp.Helpers.PointExtensions">
+            <summary>
+            Provides extension methods dealing with <see cref="T:System.Numerics.Vector2"/> and <see cref="T:SkiaSharp.SKPoint"/>.
+            </summary>
+        </member>
+        <member name="M:BassClefStudio.SkiaSharp.Helpers.PointExtensions.Translate(System.Collections.Generic.IEnumerable{System.Numerics.Vector2},System.Numerics.Vector2)">
+            <summary>
+            Adds a <see cref="T:System.Numerics.Vector2"/> value individually to a collection of <see cref="T:System.Numerics.Vector2"/>s and returns the resultant collection.
+            </summary>
+            <param name="vectors">The <see cref="T:System.Numerics.Vector2"/> collection.</param>
+            <param name="add">The <see cref="T:System.Numerics.Vector2"/> to add.</param>
+        </member>
+        <member name="M:BassClefStudio.SkiaSharp.Helpers.PointExtensions.GetPoint(System.Numerics.Vector2)">
+            <summary>
+            Converts a <see cref="T:System.Numerics.Vector2"/> into a <see cref="T:SkiaSharp.SKPoint"/>.
+            </summary>
+            <param name="vector">The <see cref="T:System.Numerics.Vector2"/> to convert.</param>
+        </member>
+        <member name="M:BassClefStudio.SkiaSharp.Helpers.PointExtensions.GetPoints(System.Collections.Generic.IEnumerable{System.Numerics.Vector2})">
+            <summary>
+            Converts a collection of <see cref="T:System.Numerics.Vector2"/>s into <see cref="T:SkiaSharp.SKPoint"/>s.
+            </summary>
+            <param name="vectors">The <see cref="T:System.Numerics.Vector2"/>s to convert.</param>
+        </member>
+        <member name="M:BassClefStudio.SkiaSharp.Helpers.PointExtensions.GetVector(SkiaSharp.SKPoint)">
+            <summary>
+            Converts a <see cref="T:SkiaSharp.SKPoint"/> into a <see cref="T:System.Numerics.Vector2"/>.
+            </summary>
+            <param name="point">The <see cref="T:SkiaSharp.SKPoint"/> to convert.</param>
+        </member>
+        <member name="M:BassClefStudio.SkiaSharp.Helpers.PointExtensions.GetVectors(System.Collections.Generic.IEnumerable{SkiaSharp.SKPoint})">
+            <summary>
+            Converts a collection of <see cref="T:SkiaSharp.SKPoint"/>s into <see cref="T:System.Numerics.Vector2"/>s.
+            </summary>
+            <param name="points">The <see cref="T:SkiaSharp.SKPoint"/>s to convert.</param>
         </member>
         <member name="T:BassClefStudio.SkiaSharp.Helpers.SelectionRegion">
             <summary>

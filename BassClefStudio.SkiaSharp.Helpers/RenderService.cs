@@ -97,11 +97,11 @@ namespace BassClefStudio.SkiaSharp.Helpers
     public static class PointExtensions
     {
         /// <summary>
-        /// Adds a <see cref="Vector2"/> value to a collection of <see cref="Vector2"/>s.
+        /// Adds a <see cref="Vector2"/> value individually to a collection of <see cref="Vector2"/>s and returns the resultant collection.
         /// </summary>
         /// <param name="vectors">The <see cref="Vector2"/> collection.</param>
         /// <param name="add">The <see cref="Vector2"/> to add.</param>
-        public static IEnumerable<Vector2> Add(this IEnumerable<Vector2> vectors, Vector2 add)
+        public static IEnumerable<Vector2> Translate(this IEnumerable<Vector2> vectors, Vector2 add)
         {
             return vectors.Select(v => v + add);
         }
