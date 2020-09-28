@@ -90,4 +90,56 @@ namespace BassClefStudio.SkiaSharp.Helpers
             }
         }
     }
+
+    /// <summary>
+    /// Provides extension methods dealing with <see cref="Vector2"/> and <see cref="SKPoint"/>.
+    /// </summary>
+    public static class PointExtensions
+    {
+        /// <summary>
+        /// Adds a <see cref="Vector2"/> value to a collection of <see cref="Vector2"/>s.
+        /// </summary>
+        /// <param name="vectors">The <see cref="Vector2"/> collection.</param>
+        /// <param name="add">The <see cref="Vector2"/> to add.</param>
+        public static IEnumerable<Vector2> Add(this IEnumerable<Vector2> vectors, Vector2 add)
+        {
+            return vectors.Select(v => v + add);
+        }
+
+        /// <summary>
+        /// Converts a <see cref="Vector2"/> into a <see cref="SKPoint"/>.
+        /// </summary>
+        /// <param name="vector">The <see cref="Vector2"/> to convert.</param>
+        public static SKPoint GetPoint(this Vector2 vector)
+        {
+            return new SKPoint(vector.X, vector.Y);
+        }
+
+        /// <summary>
+        /// Converts a collection of <see cref="Vector2"/>s into <see cref="SKPoint"/>s.
+        /// </summary>
+        /// <param name="vectors">The <see cref="Vector2"/>s to convert.</param>
+        public static IEnumerable<SKPoint> GetPoints(this IEnumerable<Vector2> vectors)
+        {
+            return vectors.Select(v => v.GetPoint());
+        }
+
+        /// <summary>
+        /// Converts a <see cref="SKPoint"/> into a <see cref="Vector2"/>.
+        /// </summary>
+        /// <param name="point">The <see cref="SKPoint"/> to convert.</param>
+        public static Vector2 GetVector(this SKPoint point)
+        {
+            return new Vector2(point.X, point.Y);
+        }
+
+        /// <summary>
+        /// Converts a collection of <see cref="SKPoint"/>s into <see cref="Vector2"/>s.
+        /// </summary>
+        /// <param name="points">The <see cref="SKPoint"/>s to convert.</param>
+        public static IEnumerable<Vector2> GetVectors(this IEnumerable<SKPoint> points)
+        {
+            return points.Select(p => p.GetVector());
+        }
+    }
 }
