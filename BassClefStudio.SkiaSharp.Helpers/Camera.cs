@@ -1,5 +1,7 @@
-﻿using System;
+﻿using SkiaSharp;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Numerics;
 using System.Text;
@@ -58,6 +60,11 @@ namespace BassClefStudio.SkiaSharp.Helpers
         /// <param name="lerpSpeed">The inverse of the distance between the current value and the desired value to travel. Must be greater than 1.</param>
         public void LerpCamera(Vector2 pos, float scale = 1, float lerpSpeed = 10f)
         {
+            if(lerpSpeed < 1)
+            {
+                throw new ArgumentOutOfRangeException("lerpSpeed", "The value of lerpSpeed must be a positive float greater than or equal to 1.");
+            }
+
             CameraPosition += (pos - CameraPosition) / lerpSpeed;
             CameraScale += (scale - CameraScale) / lerpSpeed;
         }
@@ -82,7 +89,7 @@ namespace BassClefStudio.SkiaSharp.Helpers
         /// <param name="camBehavior">The behavior of the <see cref="Camera"/> as a <see cref="CameraBehavior"/>, specifying desired zoom, bounds, and movement type.</param>
         /// <param name="position">The desired focus position for the <see cref="Camera"/> to move towards.</param>
         /// <param name="lerpSpeed">The inverse of the distance between the current value and the desired value to travel. Must be greater than 1.</param>
-        public void MoveCamera(CameraBehavior camBehavior, Vector2 position, float lerpSpeed)
+        public void MoveCamera(CameraBehavior camBehavior, Vector2 position, float lerpSpeed = 10f)
         {
             Bounds bounds = camBehavior.Bounds;
             if (camBehavior.BehaviorType == CameraBehaviorType.Fit)
@@ -153,6 +160,32 @@ namespace BassClefStudio.SkiaSharp.Helpers
             }
 
             return currentPos;
+        }
+
+        #endregion
+        #region Update
+
+        private Stopwatch stopwatch = new Stopwatch();
+        /// <summary>
+        /// Updates the <see cref="Camera"/>'s position and scale (view and camera) according to a given <see cref="CameraBehavior"/> and view size, adjusting the <paramref name="lerpSpeed"/> to match a constant <paramref name="frameRate"/>.
+        /// </summary>
+        /// <param name="canvasSize">The size of the canvas.</param>
+        /// <param name="focus">The focal point of the view, which the <see cref="Camera"/> will move towards.</param>
+        /// <param name="cameraBehavior">A <see cref="CameraBehavior"/> object that will determine how the <see cref="Camera"/> behaves.</param>
+        /// <param name="lerpSpeed">The inverse of the distance between the current value and the desired value to travel. Must be greater than 1.</param>
+        /// <param name="frameTime">Indicates the desired frame time (in milliseconds), which will adjust the <see cref="Camera"/> moevement accordingly.</param>
+        public void UpdateCamera(SKSize canvasSize, CameraBehavior cameraBehavior, Vector2 focus, float lerpSpeed = 10f, float frameTime = 30)
+        {
+            SetView(new Vector2(canvasSize.Width, canvasSize.Height), 1);
+
+            float frames = 1;
+            if (stopwatch.ElapsedMilliseconds <= lerpSpeed * frameTime && stopwatch.ElapsedMilliseconds > 0)
+            {
+                frames = stopwatch.ElapsedMilliseconds / frameTime;
+            }
+
+            MoveCamera(cameraBehavior, focus, lerpSpeed / frames);
+            stopwatch.Restart();
         }
 
         #endregion

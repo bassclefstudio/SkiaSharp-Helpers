@@ -3,6 +3,7 @@ using SkiaSharp;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Numerics;
 using System.Runtime.CompilerServices;
@@ -30,6 +31,7 @@ namespace BassClefStudio.SkiaSharp.Helpers
         /// Represents the camera that indicates how the view should be presented.
         /// </summary>
         public Camera ViewCamera { get; } = new Camera();
+
 
         /// <summary>
         /// Renders the <see cref="AttachedContext"/> onto the given <see cref="SKCanvas"/>.
