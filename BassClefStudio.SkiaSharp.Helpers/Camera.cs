@@ -55,8 +55,8 @@ namespace BassClefStudio.SkiaSharp.Helpers
         /// </summary>
         /// <param name="pos">The position of the <see cref="Camera"/>.</param>
         /// <param name="scale">The zoom factor of the <see cref="Camera"/>.</param>
-        /// <param name="lerpSpeed">The distance between the current value and the desired value to travel, as a ratio in (0,1].</param>
-        public void LerpCamera(Vector2 pos, float scale = 1, float lerpSpeed = 0.1f)
+        /// <param name="lerpSpeed">The inverse of the distance between the current value and the desired value to travel. Must be greater than 1.</param>
+        public void LerpCamera(Vector2 pos, float scale = 1, float lerpSpeed = 10f)
         {
             CameraPosition += (pos - CameraPosition) / lerpSpeed;
             CameraScale += (scale - CameraScale) / lerpSpeed;
@@ -81,7 +81,7 @@ namespace BassClefStudio.SkiaSharp.Helpers
         /// </summary>
         /// <param name="camBehavior">The behavior of the <see cref="Camera"/> as a <see cref="CameraBehavior"/>, specifying desired zoom, bounds, and movement type.</param>
         /// <param name="position">The desired focus position for the <see cref="Camera"/> to move towards.</param>
-        /// <param name="lerpSpeed">The distance between the current value and the desired value to travel, as a ratio in (0,1].</param>
+        /// <param name="lerpSpeed">The inverse of the distance between the current value and the desired value to travel. Must be greater than 1.</param>
         public void MoveCamera(CameraBehavior camBehavior, Vector2 position, float lerpSpeed)
         {
             Bounds bounds = camBehavior.Bounds;
