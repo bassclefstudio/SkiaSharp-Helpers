@@ -11,26 +11,45 @@ namespace BassClefStudio.SkiaSharp.Helpers
     /// <summary>
     /// Represents a dynamic viewport for displaying SkiaSharp graphics.
     /// </summary>
-    public class Camera
+    public interface ICamera
     {
         /// <summary>
         /// The size of the game, in pixels, as a <see cref="Vector2"/> (width, height).
         /// </summary>
-        public Vector2 ViewSize { get; private set; }
+        Vector2 ViewSize { get; }
 
         /// <summary>
         /// The scale of the game view, the size of which is defined by <see cref="ViewSize"/>, as a float.
         /// </summary>
-        public float ViewScale { get; private set; }
+        float ViewScale { get; }
 
         /// <summary>
         /// The position of the camera relative to the world, as a <see cref="Vector2"/>.
         /// </summary>
-        public Vector2 CameraPosition { get; private set; }
+        Vector2 CameraPosition { get; }
 
         /// <summary>
         /// The zoom factor of the camera relative to the world.
         /// </summary>
+        float CameraScale { get; }
+    }
+
+
+    /// <summary>
+    /// A base version of <see cref="ICamera"/> that supports various zooms, lerping, and movement commands.
+    /// </summary>
+    public class Camera : ICamera
+    {
+        /// <inheritdoc/>
+        public Vector2 ViewSize { get; private set; }
+
+        /// <inheritdoc/>
+        public float ViewScale { get; private set; }
+
+        /// <inheritdoc/>
+        public Vector2 CameraPosition { get; private set; }
+
+        /// <inheritdoc/>
         public float CameraScale { get; private set; }
 
         /// <summary>
@@ -74,7 +93,7 @@ namespace BassClefStudio.SkiaSharp.Helpers
         /// </summary>
         /// <param name="size">The size of the game view as a <see cref="Vector2"/> (width, height).</param>
         /// <param name="scale">The scale factor of the game view.</param>
-        public void SetView(Vector2 size, float scale)
+        public void SetView(Vector2 size, float scale = 1)
         {
             ViewSize = size;
             ViewScale = scale;

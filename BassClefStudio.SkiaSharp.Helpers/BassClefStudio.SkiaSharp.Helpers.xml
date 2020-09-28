@@ -4,30 +4,47 @@
         <name>BassClefStudio.SkiaSharp.Helpers</name>
     </assembly>
     <members>
-        <member name="T:BassClefStudio.SkiaSharp.Helpers.Camera">
+        <member name="T:BassClefStudio.SkiaSharp.Helpers.ICamera">
             <summary>
             Represents a dynamic viewport for displaying SkiaSharp graphics.
             </summary>
         </member>
-        <member name="P:BassClefStudio.SkiaSharp.Helpers.Camera.ViewSize">
+        <member name="P:BassClefStudio.SkiaSharp.Helpers.ICamera.ViewSize">
             <summary>
             The size of the game, in pixels, as a <see cref="T:System.Numerics.Vector2"/> (width, height).
             </summary>
         </member>
-        <member name="P:BassClefStudio.SkiaSharp.Helpers.Camera.ViewScale">
+        <member name="P:BassClefStudio.SkiaSharp.Helpers.ICamera.ViewScale">
             <summary>
-            The scale of the game view, the size of which is defined by <see cref="P:BassClefStudio.SkiaSharp.Helpers.Camera.ViewSize"/>, as a float.
+            The scale of the game view, the size of which is defined by <see cref="P:BassClefStudio.SkiaSharp.Helpers.ICamera.ViewSize"/>, as a float.
             </summary>
         </member>
-        <member name="P:BassClefStudio.SkiaSharp.Helpers.Camera.CameraPosition">
+        <member name="P:BassClefStudio.SkiaSharp.Helpers.ICamera.CameraPosition">
             <summary>
             The position of the camera relative to the world, as a <see cref="T:System.Numerics.Vector2"/>.
             </summary>
         </member>
-        <member name="P:BassClefStudio.SkiaSharp.Helpers.Camera.CameraScale">
+        <member name="P:BassClefStudio.SkiaSharp.Helpers.ICamera.CameraScale">
             <summary>
             The zoom factor of the camera relative to the world.
             </summary>
+        </member>
+        <member name="T:BassClefStudio.SkiaSharp.Helpers.Camera">
+            <summary>
+            A base version of <see cref="T:BassClefStudio.SkiaSharp.Helpers.ICamera"/> that supports various zooms, lerping, and movement commands.
+            </summary>
+        </member>
+        <member name="P:BassClefStudio.SkiaSharp.Helpers.Camera.ViewSize">
+            <inheritdoc/>
+        </member>
+        <member name="P:BassClefStudio.SkiaSharp.Helpers.Camera.ViewScale">
+            <inheritdoc/>
+        </member>
+        <member name="P:BassClefStudio.SkiaSharp.Helpers.Camera.CameraPosition">
+            <inheritdoc/>
+        </member>
+        <member name="P:BassClefStudio.SkiaSharp.Helpers.Camera.CameraScale">
+            <inheritdoc/>
         </member>
         <member name="M:BassClefStudio.SkiaSharp.Helpers.Camera.#ctor">
             <summary>
@@ -47,7 +64,7 @@
             </summary>
             <param name="pos">The position of the <see cref="T:BassClefStudio.SkiaSharp.Helpers.Camera"/>.</param>
             <param name="scale">The zoom factor of the <see cref="T:BassClefStudio.SkiaSharp.Helpers.Camera"/>.</param>
-            <param name="lerpSpeed">The distance between the current value and the desired value to travel, as a ratio in (0,1].</param>
+            <param name="lerpSpeed">The inverse of the distance between the current value and the desired value to travel. Must be greater than 1.</param>
         </member>
         <member name="M:BassClefStudio.SkiaSharp.Helpers.Camera.SetView(System.Numerics.Vector2,System.Single)">
             <summary>
@@ -62,7 +79,17 @@
             </summary>
             <param name="camBehavior">The behavior of the <see cref="T:BassClefStudio.SkiaSharp.Helpers.Camera"/> as a <see cref="T:BassClefStudio.SkiaSharp.Helpers.CameraBehavior"/>, specifying desired zoom, bounds, and movement type.</param>
             <param name="position">The desired focus position for the <see cref="T:BassClefStudio.SkiaSharp.Helpers.Camera"/> to move towards.</param>
-            <param name="lerpSpeed">The distance between the current value and the desired value to travel, as a ratio in (0,1].</param>
+            <param name="lerpSpeed">The inverse of the distance between the current value and the desired value to travel. Must be greater than 1.</param>
+        </member>
+        <member name="M:BassClefStudio.SkiaSharp.Helpers.Camera.UpdateCamera(SkiaSharp.SKSize,BassClefStudio.SkiaSharp.Helpers.CameraBehavior,System.Numerics.Vector2,System.Single,System.Single)">
+            <summary>
+            Updates the <see cref="T:BassClefStudio.SkiaSharp.Helpers.Camera"/>'s position and scale (view and camera) according to a given <see cref="T:BassClefStudio.SkiaSharp.Helpers.CameraBehavior"/> and view size, adjusting the <paramref name="lerpSpeed"/> to match a constant <paramref name="frameRate"/>.
+            </summary>
+            <param name="canvasSize">The size of the canvas.</param>
+            <param name="focus">The focal point of the view, which the <see cref="T:BassClefStudio.SkiaSharp.Helpers.Camera"/> will move towards.</param>
+            <param name="cameraBehavior">A <see cref="T:BassClefStudio.SkiaSharp.Helpers.CameraBehavior"/> object that will determine how the <see cref="T:BassClefStudio.SkiaSharp.Helpers.Camera"/> behaves.</param>
+            <param name="lerpSpeed">The inverse of the distance between the current value and the desired value to travel. Must be greater than 1.</param>
+            <param name="frameTime">Indicates the desired frame time (in milliseconds), which will adjust the <see cref="T:BassClefStudio.SkiaSharp.Helpers.Camera"/> moevement accordingly.</param>
         </member>
         <member name="T:BassClefStudio.SkiaSharp.Helpers.CameraBehavior">
             <summary>

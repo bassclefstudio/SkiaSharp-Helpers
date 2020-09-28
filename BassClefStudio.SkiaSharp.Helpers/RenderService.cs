@@ -30,8 +30,7 @@ namespace BassClefStudio.SkiaSharp.Helpers
         /// <summary>
         /// Represents the camera that indicates how the view should be presented.
         /// </summary>
-        public Camera ViewCamera { get; } = new Camera();
-
+        public ICamera ViewCamera { get; set; }
 
         /// <summary>
         /// Renders the <see cref="AttachedContext"/> onto the given <see cref="SKCanvas"/>.
