@@ -12,11 +12,17 @@ namespace BassClefStudio.SkiaSharp.Helpers
     /// </summary>
     public class SelectionRegion : Observable
     {
-        private SKRect selectionBounds;
+        private SKPoint selectionCenter;
         /// <summary>
-        /// A <see cref="SKRect"/> representing the bounds of the selection region.
+        /// A <see cref="SKPath"/> representing the bounds of the selection region.
         /// </summary>
-        public SKRect SelectionBounds { get => selectionBounds; set => Set(ref selectionBounds, value); }
+        public SKPoint SelectionCenter { get => selectionCenter; set => Set(ref selectionCenter, value); }
+
+        private float radius;
+        /// <summary>
+        /// The maximum distance away from the <see cref="SelectionCenter"/> a point can be to still be considered selecting this <see cref="SelectionRegion"/>.
+        /// </summary>
+        public float Radius { get => radius; set => Set(ref radius, value); }
 
         private object attachedObject;
         /// <summary>

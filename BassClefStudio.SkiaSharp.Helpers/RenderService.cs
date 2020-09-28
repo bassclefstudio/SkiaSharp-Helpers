@@ -72,7 +72,7 @@ namespace BassClefStudio.SkiaSharp.Helpers
         /// <param name="point">The point, in SkiaSharp pixel coordinates, to check for selection.</param>
         public SelectionRegion GetSelected(SKPoint point)
         {
-            return GetSelectionRegions().LastOrDefault(r => r.SelectionBounds.Contains(point));
+            return GetSelectionRegions().LastOrDefault(r => IsSelected(r, point));
         }
 
         /// <summary>
@@ -81,8 +81,13 @@ namespace BassClefStudio.SkiaSharp.Helpers
         /// <param name="point">The point, in SkiaSharp pixel coordinates, to check for selection.</param>
         public TItem GetSelected<TItem>(SKPoint point)
         {
-            var region = GetSelectionRegions().LastOrDefault(r => r.SelectionBounds.Contains(point) && r.AttachedObject is TItem);
+            var region = GetSelectionRegions().LastOrDefault(r => IsSelected(r, point) && r.AttachedObject is TItem);
             return region != null ? (TItem)region.AttachedObject : default(TItem);
+        }
+
+        private bool IsSelected(SelectionRegion region, SKPoint point)
+        {
+            return (point - region.SelectionCenter).LengthSquared < (region.Radius * region.Radius);
         }
 
         /// <inheritdoc/>
