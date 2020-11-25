@@ -53,6 +53,8 @@ namespace BassClefStudio.SkiaSharp.Helpers
             canvas.Translate(-ViewCamera.CameraPosition.X, -ViewCamera.CameraPosition.Y);
 
             RenderInternal(canvas);
+
+            canvas.Flush();
         }
 
         /// <summary>
